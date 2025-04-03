@@ -28,7 +28,6 @@ export const ProductListCard = ({
     return (
             <div className={styles.container}>
                     <div onMouseLeave={hideToolBar} className={styles.imgContainer}>
-                        {/* <ToolBar toolBarIsHidden={toolBarIsHidden} /> */}
                         {isHot || priceWithoutDiscount ? <div className={styles.status}>{isHot ? 'Популярное' : ''} {Number(priceWithoutDiscount) ? 'Распродажа' : ''}</div> : ''}
                         <img onClick={displayToolBar} onMouseOver={displayToolBar} className={styles.photo} alt="example" src='https://landing.engotheme.com/html/jenstore/demo/img/holiday-1.jpg' />
                     </div>
