@@ -1,0 +1,44 @@
+.navbar {
+    display: flex;
+    gap: 20px;
+    
+}
+
+.navbarItemText {
+    margin: 10px 15px;
+    font-size: 18px;
+    font-family: var(--font-poppins-lighter);
+}
+
+.navbarItemText:not(.active):hover::after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: black;
+    animation: slide-right 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards;
+    opacity: 0;
+}
+
+@keyframes slide-right {
+    0% {
+        opacity: 0;
+              transform: translateX(-4px);
+    }
+    100% {
+      opacity: 1;
+              transform: translateX(0px);
+    }
+  }
+
+.active {
+    font-weight: bold;
+    font-family: var(--font-poppins-bold);
+}
+.active::after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: black;
+}

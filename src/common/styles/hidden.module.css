@@ -1,0 +1,9 @@
+.hidden {
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .mobileHidden {
+        display: none;
+    }
+}

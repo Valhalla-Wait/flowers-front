@@ -1,0 +1,29 @@
+.icon {
+  font-size: 24px;
+}
+
+.cartIcon {
+  font-size: 24px;
+  position: absolute;
+  z-index: 1;
+}
+
+.cart {
+  position: relative;
+}
+
+.productsIndicator {
+  z-index: 2;
+  text-align: center;
+  background-color: black;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  bottom: 10px;
+  left: 15px;
+  display: grid;
+  align-items: center;
+}

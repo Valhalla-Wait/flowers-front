@@ -1,0 +1,23 @@
+.userbar {
+    display: flex;
+    gap: 60px;
+    justify-content: flex-end;
+}
+
+.icon {
+    font-size: 24px;
+}
+
+.collapsedMenu {
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .collapsedItem {
+        display: none;
+    }
+
+    .collapsedMenu {
+        display: block;
+    }
+}

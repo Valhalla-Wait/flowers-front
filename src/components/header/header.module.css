@@ -1,0 +1,15 @@
+.header {
+  height: 140px;
+    /* background-color: red; */
+    display: grid;
+    grid-template-columns: 1fr 5fr 2fr;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px
+}
+
+@media (max-width: 992px) {
+  .header {
+    grid-template-columns: 1fr 1fr
+  }
+}
