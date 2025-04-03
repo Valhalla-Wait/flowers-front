@@ -7,6 +7,7 @@ import { CollapsedMenu } from "@/components/collapsedMenu/collapsedMenu";
 import { Header } from "@/components/header/header";
 import { useState } from "react";
 import styles from "@/app/page.module.css"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -53,6 +54,7 @@ export default function RootLayout({
             </div>
           </AntdRegistry>
         </ReactQueryProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
