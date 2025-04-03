@@ -1,6 +1,7 @@
 import styles from "./productListCard.module.css";
 import { useState } from "react";
 import { ToolBar } from "./toolBar/toolBar";
+import { HeartOutlined } from "@ant-design/icons";
 
 export type ProductListCardType = {
     id: string,
@@ -26,17 +27,21 @@ export const ProductListCard = ({
 
     return (
             <div className={styles.container}>
-                    {isHot || priceWithoutDiscount ? <div className={styles.status}>{isHot ? 'Популярное' : ''} {Number(priceWithoutDiscount) ? 'Распродажа' : ''}</div> : ''}
-
                     <div onMouseLeave={hideToolBar} className={styles.imgContainer}>
-                        <ToolBar toolBarIsHidden={toolBarIsHidden} />
+                        {/* <ToolBar toolBarIsHidden={toolBarIsHidden} /> */}
+                        {isHot || priceWithoutDiscount ? <div className={styles.status}>{isHot ? 'Популярное' : ''} {Number(priceWithoutDiscount) ? 'Распродажа' : ''}</div> : ''}
                         <img onClick={displayToolBar} onMouseOver={displayToolBar} className={styles.photo} alt="example" src='https://landing.engotheme.com/html/jenstore/demo/img/holiday-1.jpg' />
                     </div>
                     
 
-                    <div className={styles.productInfo}>
-                        <div className={styles.title}>{title}</div>
-                        <div className={styles.price}>{`${price} р.`} {Number(priceWithoutDiscount) ? <div className={styles.discountPrice}>{`${priceWithoutDiscount} р.`}</div> : ''}</div>
+                    <div className={styles.content}>
+                        <div className={styles.productInfo}>
+                            <div className={styles.title}>{title}</div>
+                            <div className={styles.price}>{`${price} р.`} {Number(priceWithoutDiscount) ? <div className={styles.discountPrice}>{`${priceWithoutDiscount} р.`}</div> : ''}</div>
+                        </div>
+                        <div className={styles.actions}>
+                            <div className={styles.buyBtn}>В корзину</div>
+                        </div>
                     </div>
             </div>
     )

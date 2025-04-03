@@ -21,9 +21,9 @@ export default function Catalog() {
         },
         {
             id: '3',
-            title: "Букет гвоздик",
-            price: 700,
-            priceWithoutDiscount: 1500,
+            title: "Букет из кустовых французских-голландских тюльпанов",
+            price: 15000,
+            priceWithoutDiscount: 30000,
             photo: '123dasflkdf',
         },
         {
