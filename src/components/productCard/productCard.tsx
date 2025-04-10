@@ -26,7 +26,7 @@ export default function ProductCard({id, title, price, photo, isAvailable}: {id:
 
     return  <Card
     hoverable
-    cover={<img alt="example" src='https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png' />}
+    cover={<img alt="example" src={photo} />}
     >
     <div style={{
             display: 'grid',

@@ -1,6 +1,5 @@
 .header {
-  height: 140px;
-    /* background-color: red; */
+    height: 140px;
     display: grid;
     grid-template-columns: 1fr 5fr 2fr;
     align-items: center;
@@ -10,6 +9,12 @@
 
 @media (max-width: 992px) {
   .header {
-    grid-template-columns: 1fr 1fr
+    grid-template-columns: 1fr 1fr;
+    height: 110px;
+  }
+}
+@media (max-width: 620px) {
+  .header {
+    padding: 0 20px;
   }
 }

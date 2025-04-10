@@ -1,0 +1,9 @@
+.container {
+    background-color: #e18787;
+    color: white;
+    border-radius: 15px;
+    padding: 5px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

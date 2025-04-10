@@ -5,6 +5,7 @@
 }
 
 .navbarItemText {
+    height: 27px;
     margin: 10px 15px;
     font-size: 18px;
     font-family: var(--font-poppins-lighter);

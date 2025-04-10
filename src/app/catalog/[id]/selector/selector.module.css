@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    gap: 3px;
+}
+.btn {
+    font-weight: 400;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    justify-items: center;
+    background: #fff;
+    color: black;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.selector {
+    font-weight: 400;
+    font-size: 18px;
+    width: 40px;
+    height: 30px;
+    display: grid;
+    justify-items: center;
+    background: #fff;
+    color: black;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}

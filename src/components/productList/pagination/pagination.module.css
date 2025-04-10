@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.item {
+    font-weight: 400;
+    font-size: 14px;
+    color: black;
+    background: rgb(238, 238, 238);
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.itemActive {
+  font-weight: 400;
+  font-size: 14px;
+  color: white;
+  background: black;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.active>.ant-pagination-item>a {
+  /* border: none !important;
+  background-color: black !important; */
+  /* a { */
+    color:white !important;
+  /* } */
+}
+/* .ant-pagination {
+  border: none !important;
+  background-color: black !important;
+  color:white !important;
+} */

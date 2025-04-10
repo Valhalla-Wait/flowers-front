@@ -1,0 +1,24 @@
+.item {
+  font-weight: 500;
+}
+
+.active {
+  color: black !important;
+  font-weight: 900;
+}
+
+@media (max-width: 910px) {
+  .container {
+    padding-left: 50px;
+  }
+}
+@media (max-width: 910px) {
+  .container {
+    padding-left: 50px;
+  }
+}
+@media (max-width: 620px) {
+  .container {
+    padding-left: 0;
+  }
+}

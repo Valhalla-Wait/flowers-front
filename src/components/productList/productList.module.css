@@ -3,3 +3,16 @@
   gap: 30px;
   padding: 0px 50px 0px 50px;
 }
+
+.active>.ant-pagination-item>a {
+  /* border: none !important;
+  background-color: black !important; */
+  /* a { */
+    color:white !important;
+  /* } */
+}
+/* .ant-pagination {
+  border: none !important;
+  background-color: black !important;
+  color:white !important;
+} */

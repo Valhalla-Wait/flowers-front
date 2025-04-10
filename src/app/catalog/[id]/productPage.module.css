@@ -1,0 +1,139 @@
+.container {
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px
+}
+.photo {
+    max-width: 545px;
+    width: 100%;
+    height: auto;
+}
+.title {
+    font-weight: 600;
+    font-size: 24px;
+}
+.border {
+    height: 1px;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+.consumables {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    font-weight: 400;
+    font-size: 18px;
+}
+.price {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: 600;
+    font-size: 24px;
+}
+.discountPrice {
+    text-decoration: line-through;
+    font-size: 16px;
+    font-weight: 500;
+    color: lightgrey;
+}
+.product {
+    display: flex;
+    gap: 30px;
+    padding-right: 20px;
+}
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 545px;
+    width: 100%;
+}
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.count {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-weight: 400;
+    font-size: 18px;
+}
+.orderPrice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.actions{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.buy{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: 24px;
+    background: black;
+    color: #fff;
+    transition: all .4s ease;
+    border: 1px solid black;
+    width: 183px;
+    height: 62px;
+    cursor: pointer;
+}
+.buy:hover {
+    background-color: rgb(255, 255, 255);
+    color: black;
+    background-position: 100% center;
+    background-image: linear-gradient(30deg, black 50%, transparent 50%);
+    background-size: 600px;
+    background-repeat: no-repeat;
+    text-decoration: none;
+}
+.like {
+    display: grid;
+    justify-items: center;
+    width: 56px;
+    height: 56px;
+    font-size: 18px;
+    border-radius: 50%;
+    background: #eeeeee;
+    color: #888888;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.like:hover {
+    color: black;
+}
+
+@media (max-width: 910px) {
+    .container {
+        padding-left: 0;
+    }
+    .product {
+      flex-direction: column;
+      align-items: center;
+      padding-right: 0;
+    }
+    .actions {
+        justify-content: space-between
+    }
+  }
+@media (max-width: 620px) {
+    .container {
+        padding: 0 20px;
+    }
+    .count {
+        gap: 10px;
+    }
+  }

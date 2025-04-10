@@ -6,8 +6,11 @@ import ReactQueryProvider from "@/providers/reactQuery";
 import { CollapsedMenu } from "@/components/collapsedMenu/collapsedMenu";
 import { Header } from "@/components/header/header";
 import { useState } from "react";
-import styles from "@/app/page.module.css"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import styles from "@/app/page.module.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import "@ant-design/v5-patch-for-react-19";
+import { ConfigProvider } from "antd";
+import { Footer } from "@/components/footer/footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,25 +36,44 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [collapsedMobileMenu, setCollapsedMobileMenu] = useState(true)
-  
-    const toggleCollapsedMobileMenu = () => setCollapsedMobileMenu(!collapsedMobileMenu)
+  const [collapsedMobileMenu, setCollapsedMobileMenu] = useState(true);
+
+  const toggleCollapsedMobileMenu = () =>
+    setCollapsedMobileMenu(!collapsedMobileMenu);
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${poppinsLighter.variable} ${poppinsBold.variable}`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${poppinsLighter.variable} ${poppinsBold.variable}`}
+      >
         <ReactQueryProvider>
           <AntdRegistry>
-            <div className={styles.page}>
-              <CollapsedMenu toggleCollapse={toggleCollapsedMobileMenu} collapse={collapsedMobileMenu} />
-              <Header toggleCollapsedMobileMenu={toggleCollapsedMobileMenu} />
-              <main className={styles.main}>
-                {children}
-              </main>
-              <footer className={styles.footer}>
-                FOOTER
-              </footer>
-            </div>
+            <ConfigProvider
+              theme={{
+                components: {
+                  Breadcrumb: {
+                    colorLinkActive: "black",
+                    linkColor: "#888888",
+                    colorBgTextHover: "none",
+                    fontSize: 12,
+                  },
+                },
+              }}
+            >
+              <div className={styles.page}>
+                <CollapsedMenu
+                  toggleCollapse={toggleCollapsedMobileMenu}
+                  collapse={collapsedMobileMenu}
+                />
+                <div className={styles.mainBlock}>
+                  <Header
+                    toggleCollapsedMobileMenu={toggleCollapsedMobileMenu}
+                  />
+                  <main className={styles.main}>{children}</main>
+                </div>
+                <Footer />
+              </div>
+            </ConfigProvider>
           </AntdRegistry>
         </ReactQueryProvider>
         <SpeedInsights />

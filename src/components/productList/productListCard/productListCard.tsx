@@ -4,44 +4,65 @@ import { ToolBar } from "./toolBar/toolBar";
 import { HeartOutlined } from "@ant-design/icons";
 
 export type ProductListCardType = {
-    id: string,
-    title: string,
-    price: number,
-    photo: string
-    priceWithoutDiscount?: number,
-    isHot?: boolean
-}
+  id: string;
+  title: string;
+  price: number;
+  photo: string;
+  priceWithoutDiscount?: number;
+  isHot?: boolean;
+};
 
 export const ProductListCard = ({
-    title,
-    price,
-    // photo,
-    priceWithoutDiscount,
-    isHot
+  title,
+  price,
+  photo,
+  priceWithoutDiscount,
+  isHot,
 }: ProductListCardType) => {
-    // TODO: Сделать элемент img в Item
-    const [toolBarIsHidden , setToolBarIsHidden] = useState(() => false)
+  // TODO: Сделать элемент img в Item
+  const [toolBarIsHidden, setToolBarIsHidden] = useState(() => false);
 
-    const displayToolBar = () => setToolBarIsHidden(() => true)
-    const hideToolBar = () => setToolBarIsHidden(() => false)
+  const displayToolBar = () => setToolBarIsHidden(() => true);
+  const hideToolBar = () => setToolBarIsHidden(() => false);
 
-    return (
-            <div className={styles.container}>
-                    <div onMouseLeave={hideToolBar} className={styles.imgContainer}>
-                        {isHot || priceWithoutDiscount ? <div className={styles.status}>{isHot ? 'Популярное' : ''} {Number(priceWithoutDiscount) ? 'Распродажа' : ''}</div> : ''}
-                        <img onClick={displayToolBar} onMouseOver={displayToolBar} className={styles.photo} alt="example" src='https://landing.engotheme.com/html/jenstore/demo/img/holiday-1.jpg' />
-                    </div>
-                    
+  return (
+    <div className={styles.container}>
+      <div onMouseLeave={hideToolBar} className={styles.imgContainer}>
+        {isHot || priceWithoutDiscount ? (
+          <div className={styles.status}>
+            {isHot ? "Популярное" : ""}{" "}
+            {Number(priceWithoutDiscount) ? "Распродажа" : ""}
+          </div>
+        ) : (
+          ""
+        )}
+        <img
+          onClick={displayToolBar}
+          onMouseOver={displayToolBar}
+          className={styles.photo}
+          alt="example"
+          src={photo}
+        />
+      </div>
 
-                    <div className={styles.content}>
-                        <div className={styles.productInfo}>
-                            <div className={styles.title}>{title}</div>
-                            <div className={styles.price}>{`${price} р.`} {Number(priceWithoutDiscount) ? <div className={styles.discountPrice}>{`${priceWithoutDiscount} р.`}</div> : ''}</div>
-                        </div>
-                        <div className={styles.actions}>
-                            <div className={styles.buyBtn}>В корзину</div>
-                        </div>
-                    </div>
-            </div>
-    )
-}
+      <div className={styles.content}>
+        <div className={styles.productInfo}>
+          <div className={styles.title}>{title}</div>
+          <div className={styles.price}>
+            {`${price} р.`}{" "}
+            {Number(priceWithoutDiscount) ? (
+              <div
+                className={styles.discountPrice}
+              >{`${priceWithoutDiscount} р.`}</div>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+        <div className={styles.actions}>
+          <div className={styles.buyBtn}>В корзину</div>
+        </div>
+      </div>
+    </div>
+  );
+};

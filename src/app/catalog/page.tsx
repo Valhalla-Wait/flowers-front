@@ -1,46 +1,43 @@
-"use client"
+"use client";
 import { ProductList } from "@/components/productList/productList";
 import styles from "./page.module.css";
 import { useState } from "react";
 import { ProductListCardType } from "@/components/productList/productListCard/productListCard";
+import { useQuery } from "@tanstack/react-query";
+
+const fetchData = async (currentPage: number, pageSize: number) => {
+  const response = await fetch(
+    `http://localhost:8888/api/products?page=${currentPage}&limit=${pageSize}`
+  );
+  const result = await response.json();
+
+  return { list: result.list, meta: result.meta };
+};
 
 export default function Catalog() {
-    const [products] = useState<ProductListCardType[]>([
-        {
-            id: '1',
-            title: "Букет роз",
-            price: 1200,
-            photo: '123dasflkdf',
-            isHot: true
-        },
-        {
-            id: '2',
-            title: "Букет лилий",
-            price: 1600,
-            photo: '123dasflkdf'
-        },
-        {
-            id: '3',
-            title: "Букет из кустовых французских-голландских тюльпанов",
-            price: 15000,
-            priceWithoutDiscount: 30000,
-            photo: '123dasflkdf',
-        },
-        {
-            id: '4',
-            title: "Букет тюльпанов",
-            price: 12000,
-            photo: '123dasflkdf'
-        }
-    ])
+  const [currentPage, setCurrentPage] = useState(1);
 
-    return <div className={styles.container}>
-        {/* <div className={styles.sales}></div> */}
-        {/* <div className={styles.header}>
+  const { data: products, isLoading } = useQuery<{
+    list: ProductListCardType[];
+    meta: Record<string, number>;
+  }>({
+    queryKey: ["products", currentPage],
+    queryFn: () => fetchData(currentPage, 10),
+  });
+
+  return (
+    <div className={styles.container}>
+      {/* <div className={styles.saleBanner}></div> */}
+      {/* <div className={styles.header}>
             <div className={styles.sort}>Сортировка</div>
             <div className={styles.filter}>Фильтры</div>
         </div> */}
-        <ProductList list={products}/>
-        {/* <div className={styles.list}>Пагинация</div> */}
+      <ProductList
+        currentPage={currentPage}
+        onChange={setCurrentPage}
+        total={products?.meta.pages ?? 0}
+        list={products?.list ?? []}
+      />
     </div>
+  );
 }
