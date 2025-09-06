@@ -49,11 +49,10 @@ const createProductQuery = async (data: CreateProductFieldType) => {
     //   }
     // );
 
-    console.log("DATA", data);
-
     await axios.post(
       "http://localhost:8888/api/auth/sign-in",
       {
+        phone: "89101290091",
         password: "123456",
       },
       {
@@ -72,7 +71,6 @@ const createProductQuery = async (data: CreateProductFieldType) => {
     );
 
     const result = await response.data;
-    console.log("SUCCESS", result);
     return result.data;
   } catch (error) {
     console.log("FAILED", error);

@@ -12,15 +12,20 @@
     "@ant-design/icons": "^5.5.1",
     "@ant-design/nextjs-registry": "^1.0.2",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
-    "@tanstack/react-query": "^5.59.16",
+    "@tanstack/react-query": "^5.83.0",
+    "@tanstack/react-query-devtools": "^5.83.0",
     "@vercel/speed-insights": "^1.2.0",
     "antd": "^5.24.6",
     "axios": "^1.8.4",
+    "dayjs": "^1.11.13",
+    "js-cookie": "^3.0.5",
     "next": "15.0.1",
     "react": "19.0.0-rc-69d4b800-20241021",
-    "react-dom": "19.0.0-rc-69d4b800-20241021"
+    "react-dom": "19.0.0-rc-69d4b800-20241021",
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

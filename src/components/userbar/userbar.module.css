@@ -2,7 +2,29 @@
     display: flex;
     gap: 60px;
     justify-content: flex-end;
+    height: 30px;
 }
+
+.collapsedItem:not(.active):hover::after {
+    content: "";
+    display: block;
+    margin-top: 3px;
+    height: 2px;
+    background-color: black;
+    animation: slide-right 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards;
+    opacity: 0;
+}
+
+@keyframes slide-right {
+    0% {
+        opacity: 0;
+              transform: translateX(-4px);
+    }
+    100% {
+      opacity: 1;
+              transform: translateX(0px);
+    }
+  }
 
 .icon {
     font-size: 24px;
@@ -10,6 +32,14 @@
 
 .collapsedMenu {
     display: none;
+}
+
+.active::after {
+    content: "";
+    display: block;
+    height: 2px;
+    margin-top: 3px;
+    background-color: black;
 }
 
 @media (max-width: 992px) {

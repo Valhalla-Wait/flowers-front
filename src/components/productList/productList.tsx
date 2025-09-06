@@ -5,8 +5,6 @@ import {
 } from "./productListCard/productListCard";
 import { Content } from "antd/es/layout/layout";
 import { Pagination } from "./pagination/pagination";
-import Link from "next/link";
-import { CustomLink } from "../customLink/customLink";
 
 export const ProductList = ({
   list,
@@ -37,9 +35,7 @@ export const ProductList = ({
         dataSource={list}
         renderItem={(product) => (
           <List.Item>
-            <CustomLink href={`/catalog/${product.id}`}>
-              <ProductListCard key={product.id} {...product} />
-            </CustomLink>
+            <ProductListCard key={product.id} {...product} />
           </List.Item>
         )}
       />

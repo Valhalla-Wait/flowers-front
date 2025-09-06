@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.line {
+    border-bottom: 1px solid #ddd;
+}
+
+.photo {
+    width: 330px;
+    height: 420px;
+}
+.title {
+    max-width: 260px;
+    width: 100%;
+    font-size: 18px;
+}
+
+.price {
+    max-width: 90px;
+    width: 100%;
+    font: 400 18px "Poppins";
+    color: #666;
+}

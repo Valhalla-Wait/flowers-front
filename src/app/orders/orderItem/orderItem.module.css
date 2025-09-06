@@ -1,0 +1,124 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobileInfo {
+    display: none;
+}
+
+.info {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+   }
+
+.photo {
+    width: 330px;
+    height: 420px;
+}
+.title {
+    max-width: 200px;
+    width: 100%;
+    font-size: 18px;
+    display: flex;
+}
+
+.price {
+    max-width: 90px;
+    width: 100%;
+    font: 400 18px "Poppins";
+    color: #666;
+}
+.detail {
+    background-color: #f5f5f5;
+}
+.detailHeader {
+    background-color: #ddd;
+    display: flex;
+    gap: 20px;
+    /* border-bottom: 1px solid #ddd; */
+    padding: 10px 10px  10px 30px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+}
+.detailItem {
+    display: flex;
+    gap: 20px;
+    /* border-bottom: 1px solid #ddd; */
+    padding: 10px 10px  10px 30px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+}
+
+.detailItemTitle {
+    max-width: 200px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.detailItemPrice {
+    max-width: 110px;
+    width: 100%;
+    text-align: center;
+}
+.detailItemTotalPrice {
+    max-width: 110px;
+    width: 100%;
+    text-align: right;
+}
+
+.detailItemCount {
+    max-width: 55px;
+    width: 100%;
+    text-align: center;
+}
+
+@media (max-width: 620px) {
+    .container {
+        width: 100%;
+    }
+    .mobileInfo {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+    }
+    .mobileInfoTable {
+     width: 100%;
+    }
+    .mobileTitle {
+        padding: 15px;
+        font-size: 24px;
+    }
+    .mobileAction {
+        padding: 15px;
+    }
+    .mobileInfoTitle {
+        width: 100%;
+        text-align: center;
+    }
+    .mobileDate{
+        display: flex;
+    }
+    .mobileTotalPrice {}
+    .mobileStatus{}
+
+    .tableHeader {
+        width: min-content;
+        background-color: #f5f5f5;
+        text-align: left;
+        padding: 10px
+    }
+
+    .info {
+        display: none;
+    }
+  }

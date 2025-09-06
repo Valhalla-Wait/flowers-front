@@ -17,13 +17,13 @@ export default function Selector({
 }: SelectorProps) {
   return (
     <div className={styles.container}>
-      <div onClick={decrement} className={styles.btn}>
+      <button onClick={decrement} className={styles.btn}>
         <MinusOutlined />
-      </div>
+      </button>
       <input className={styles.selector} onChange={onChange} value={count} />
-      <div onClick={increment} className={styles.btn}>
+      <button onClick={increment} className={styles.btn}>
         <PlusOutlined />
-      </div>
+      </button>
     </div>
   );
 }
