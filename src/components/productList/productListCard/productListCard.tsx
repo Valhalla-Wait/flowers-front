@@ -1,7 +1,8 @@
 import styles from "./productListCard.module.css";
-import { useState } from "react";
-import { ToolBar } from "./toolBar/toolBar";
-import { HeartOutlined } from "@ant-design/icons";
+import Link from "next/link";
+import { CustomLink } from "@/components/customLink/customLink";
+import { CountSelector } from "@/components/countSelector/countSelector";
+import { useCart } from "@/hooks/useCart";
 
 export type ProductListCardType = {
   id: string;
@@ -10,44 +11,50 @@ export type ProductListCardType = {
   photo: string;
   priceWithoutDiscount?: number;
   isHot?: boolean;
+  inCartCount?: number;
 };
 
 export const ProductListCard = ({
+  id,
   title,
   price,
   photo,
   priceWithoutDiscount,
   isHot,
+  inCartCount,
 }: ProductListCardType) => {
   // TODO: Сделать элемент img в Item
-  const [toolBarIsHidden, setToolBarIsHidden] = useState(() => false);
 
-  const displayToolBar = () => setToolBarIsHidden(() => true);
-  const hideToolBar = () => setToolBarIsHidden(() => false);
+  // TODO: Рефакторинг: брать либо сверху из списка, либо из хука
+  const { updateProductCount, addProduct, getCartProductById } = useCart({
+    productId: id,
+    price,
+    count: inCartCount ?? 0,
+  });
+
+  const cartProduct = getCartProductById(id);
 
   return (
     <div className={styles.container}>
-      <div onMouseLeave={hideToolBar} className={styles.imgContainer}>
-        {isHot || priceWithoutDiscount ? (
-          <div className={styles.status}>
-            {isHot ? "Популярное" : ""}{" "}
-            {Number(priceWithoutDiscount) ? "Распродажа" : ""}
-          </div>
-        ) : (
-          ""
-        )}
-        <img
-          onClick={displayToolBar}
-          onMouseOver={displayToolBar}
-          className={styles.photo}
-          alt="example"
-          src={photo}
-        />
-      </div>
+      <Link href={`/catalog/${id}`}>
+        <div className={styles.imgContainer}>
+          {isHot || priceWithoutDiscount ? (
+            <div className={styles.status}>
+              {isHot ? "Популярное" : ""}{" "}
+              {Number(priceWithoutDiscount) ? "Распродажа" : ""}
+            </div>
+          ) : (
+            ""
+          )}
+          <img className={styles.photo} alt="example" src={photo} />
+        </div>
+      </Link>
 
       <div className={styles.content}>
         <div className={styles.productInfo}>
-          <div className={styles.title}>{title}</div>
+          <CustomLink href={`/catalog/${id}`}>
+            <div className={styles.title}>{title}</div>
+          </CustomLink>
           <div className={styles.price}>
             {`${price} р.`}{" "}
             {Number(priceWithoutDiscount) ? (
@@ -60,7 +67,17 @@ export const ProductListCard = ({
           </div>
         </div>
         <div className={styles.actions}>
-          <div className={styles.buyBtn}>В корзину</div>
+          {cartProduct?.count ? (
+            <CountSelector
+              withDescription={false}
+              count={cartProduct?.count}
+              setCount={updateProductCount}
+            />
+          ) : (
+            <button onClick={addProduct} className={styles.buyBtn}>
+              В корзину
+            </button>
+          )}
         </div>
       </div>
     </div>

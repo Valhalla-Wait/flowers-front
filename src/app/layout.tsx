@@ -5,12 +5,17 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import ReactQueryProvider from "@/providers/reactQuery";
 import { CollapsedMenu } from "@/components/collapsedMenu/collapsedMenu";
 import { Header } from "@/components/header/header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "@/app/page.module.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@ant-design/v5-patch-for-react-19";
 import { ConfigProvider } from "antd";
 import { Footer } from "@/components/footer/footer";
+import AuthProvider from "@/providers/authProvider";
+import Cookies from "js-cookie";
+import { CartStoreType, useStore } from "@/core/store/store";
+import { useShallow } from "zustand/shallow";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,13 +41,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // TODO: Сделать доп. обертку, чтобы юзать layout без use client
   const [collapsedMobileMenu, setCollapsedMobileMenu] = useState(true);
+  const { tempCart, setTempCart } = useStore(
+    useShallow(({ tempCart, setTempCart }) => ({
+      tempCart,
+      setTempCart,
+    }))
+  );
+
+  useEffect(() => {
+    const cookiesTempCart = Cookies.get("tempCart");
+
+    let preparedCookieTempCart: CartStoreType | null = null;
+
+    if (cookiesTempCart) {
+      preparedCookieTempCart = JSON.parse(cookiesTempCart) as CartStoreType;
+    }
+
+    if (
+      !tempCart.productsData.length &&
+      preparedCookieTempCart?.productsData.length
+    ) {
+      setTempCart(preparedCookieTempCart);
+    }
+  }, [tempCart]);
 
   const toggleCollapsedMobileMenu = () =>
     setCollapsedMobileMenu(!collapsedMobileMenu);
 
   return (
-    <html lang="en">
+    <html lang="ru">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppinsLighter.variable} ${poppinsBold.variable}`}
       >
@@ -60,21 +89,24 @@ export default function RootLayout({
                 },
               }}
             >
-              <div className={styles.page}>
-                <CollapsedMenu
-                  toggleCollapse={toggleCollapsedMobileMenu}
-                  collapse={collapsedMobileMenu}
-                />
-                <div className={styles.mainBlock}>
-                  <Header
-                    toggleCollapsedMobileMenu={toggleCollapsedMobileMenu}
+              <AuthProvider>
+                <div className={styles.page}>
+                  <CollapsedMenu
+                    toggleCollapse={toggleCollapsedMobileMenu}
+                    collapse={collapsedMobileMenu}
                   />
-                  <main className={styles.main}>{children}</main>
+                  <div className={styles.mainBlock}>
+                    <Header
+                      toggleCollapsedMobileMenu={toggleCollapsedMobileMenu}
+                    />
+                    <main className={styles.main}>{children}</main>
+                  </div>
+                  <Footer />
                 </div>
-                <Footer />
-              </div>
+              </AuthProvider>
             </ConfigProvider>
           </AntdRegistry>
+          <ReactQueryDevtools position="bottom" initialIsOpen={true} />
         </ReactQueryProvider>
         <SpeedInsights />
       </body>

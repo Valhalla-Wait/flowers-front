@@ -107,7 +107,6 @@
     font-weight: 400;
     font-family: var(--font-poppins-bold);
     font-size: 16px;
-    color: black;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 30px;
+}
+
+.photo {
+  width: 65px;
+  width: 80px;
+  height: 80px;
+}
+
+.title {
+  cursor: pointer;
+}
+
+.title:hover {
+  color: pink
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail {
+  display: flex;
+  gap: 30px;
+}

@@ -1,9 +1,12 @@
 "use client";
 import { ProductList } from "@/components/productList/productList";
 import styles from "./page.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductListCardType } from "@/components/productList/productListCard/productListCard";
 import { useQuery } from "@tanstack/react-query";
+import { CartRequests } from "@/core/net/cart";
+import { CartDataType } from "@/core/net/types";
+import { useStore } from "@/core/store/store";
 
 const fetchData = async (currentPage: number, pageSize: number) => {
   const response = await fetch(
@@ -16,14 +19,58 @@ const fetchData = async (currentPage: number, pageSize: number) => {
 
 export default function Catalog() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [catalogProducts, setCatalogProducts] = useState<{
+    list: ProductListCardType[];
+    meta: Record<string, number>;
+  } | null>(null);
+
+  const productsData = useStore((store) => store.tempCart.productsData);
 
   const { data: products, isLoading } = useQuery<{
     list: ProductListCardType[];
     meta: Record<string, number>;
   }>({
-    queryKey: ["products", currentPage],
+    queryKey: ["products"],
     queryFn: () => fetchData(currentPage, 10),
   });
+
+  const { data: cart, isLoading: isCartLoading } = useQuery<CartDataType>({
+    queryKey: ["cartProducts", currentPage, 20],
+    queryFn: () => CartRequests.getCart(currentPage, 20),
+    retry: false,
+  });
+
+  useEffect(() => {
+    if (products) {
+      if (cart) {
+        const preparedProducts = products.list.map((product) => ({
+          ...product,
+          inCartCount: cart.list.filter(
+            (cartProduct) => cartProduct.product.id === product.id
+          ).length,
+        }));
+
+        setCatalogProducts({
+          ...products,
+          list: preparedProducts,
+        });
+      } else if (productsData) {
+        const preparedProducts = products.list.map((product) => ({
+          ...product,
+          inCartCount: productsData.filter(
+            (cartProduct) => cartProduct.id === product.id
+          ).length,
+        }));
+
+        setCatalogProducts({
+          ...products,
+          list: preparedProducts,
+        });
+      } else {
+        setCatalogProducts(products);
+      }
+    }
+  }, [isCartLoading, isLoading, productsData]);
 
   return (
     <div className={styles.container}>
@@ -35,8 +82,8 @@ export default function Catalog() {
       <ProductList
         currentPage={currentPage}
         onChange={setCurrentPage}
-        total={products?.meta.pages ?? 0}
-        list={products?.list ?? []}
+        total={catalogProducts?.meta.pages ?? 0}
+        list={catalogProducts?.list ?? []}
       />
     </div>
   );

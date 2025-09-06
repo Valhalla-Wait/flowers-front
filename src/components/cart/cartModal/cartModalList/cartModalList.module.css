@@ -1,0 +1,11 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.defaultText {
+  text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #d3d3d3;
+}
