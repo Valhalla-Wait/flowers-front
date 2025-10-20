@@ -42,6 +42,7 @@
     background-color: black;
 }
 
+/* ! Вынести на общий план, такого используется в админке */
 @media (max-width: 992px) {
     .collapsedItem {
         display: none;

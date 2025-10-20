@@ -1,5 +1,11 @@
 import { makeRequest } from "@/utils/makeRequest";
-import { AuthDataFetchType, AuthDataType, ProfileDataFetchType } from "./types";
+import {
+  AuthAdminDataFetchType,
+  AuthAdminDataType,
+  AuthDataFetchType,
+  AuthDataType,
+  ProfileDataFetchType,
+} from "./types";
 
 export class AuthRequests {
   static async GetMe() {
@@ -15,6 +21,16 @@ export class AuthRequests {
     const response = await makeRequest<AuthDataFetchType>({
       method: "post",
       url: "auth/sign-in",
+      data,
+    });
+
+    return response.data;
+  }
+
+  static async AdminSignIn(data: AuthAdminDataType) {
+    const response = await makeRequest<AuthAdminDataFetchType>({
+      method: "post",
+      url: "auth/admin-sign-in",
       data,
     });
 

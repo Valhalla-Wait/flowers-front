@@ -1,0 +1,10 @@
+.menu {
+    font-size: 18px;
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .menu {
+        display: block;
+    }
+}

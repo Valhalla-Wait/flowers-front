@@ -1,5 +1,10 @@
 import { AddToCartDataType } from "./cart";
 
+export type ApiResponse = {
+  message: string;
+  statusCode: number;
+};
+
 export enum Roles {
   ADMIN = "admin",
   USER = "user",
@@ -33,6 +38,23 @@ export type CartItemType = {
   productTotalPrice: number;
 };
 
+export type UpdateProductDataType = Partial<
+  CreateProductDataType & {
+    id: string;
+    isAvailable: boolean;
+  }
+>;
+
+export type CreateProductDataType = {
+  title: string;
+  price: number;
+  photo: string;
+  consumables?: {
+    id: string;
+    requiredCount: number;
+  }[];
+};
+
 export type MetaType = {
   total: number;
   limit?: number;
@@ -45,6 +67,9 @@ export type AuthDataType = {
   password: string;
   tempCartProducts?: AddToCartDataType[];
 };
+
+export type AuthAdminDataType = Omit<AuthDataType, "tempCartProducts">;
+
 export type AuthDataFetchType = {
   user: UserType;
   accessToken: string;
@@ -52,6 +77,11 @@ export type AuthDataFetchType = {
   success: CartItemProductType[];
   failed: CartItemProductType[];
 };
+
+export type AuthAdminDataFetchType = Omit<
+  AuthDataFetchType,
+  "success" | "failed"
+>;
 
 export type ProfileDataFetchType = {
   data: {
@@ -61,3 +91,16 @@ export type ProfileDataFetchType = {
     role: Roles;
   };
 };
+
+export type ConsumableOutType = {
+  id: string;
+  title: string;
+  count: number;
+};
+
+export type CreateConsumableDataType = {
+  title: string;
+  count: number;
+};
+
+export type UpdateConsumableDataType = Partial<CreateConsumableDataType>;

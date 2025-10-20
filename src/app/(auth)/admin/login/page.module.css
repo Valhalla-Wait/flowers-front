@@ -1,0 +1,18 @@
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContainer{
+    margin: 10px;
+    width: 400px;
+    text-align: center;
+}
+
+.title{}
+
+.form{
+
+}

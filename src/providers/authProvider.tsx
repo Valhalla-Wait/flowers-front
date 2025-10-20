@@ -1,6 +1,7 @@
 "use client";
 
 import { AuthRequests } from "@/core/net/auth";
+import { Roles } from "@/core/net/types";
 import { useStore } from "@/core/store/store";
 import { useQuery } from "@tanstack/react-query";
 import { redirect, usePathname, useRouter } from "next/navigation";

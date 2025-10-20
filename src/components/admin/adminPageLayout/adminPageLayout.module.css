@@ -1,0 +1,10 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px !important;
+    color: white !important;
+}
+.content {
+    margin: 24px 16px;
+    padding: 10px;
+}

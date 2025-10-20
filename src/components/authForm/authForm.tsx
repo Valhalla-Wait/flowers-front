@@ -32,7 +32,7 @@ export const AuthInputStyle: CSSProperties = {
   fontSize: 18,
 };
 
-const authDataByType: AuthTypeData = {
+export const authDataByType: AuthTypeData = {
   [AuthTypeEnum.SignUp]: {
     label: "Регистрация",
     btnTitle: "Зарегистрироваться",

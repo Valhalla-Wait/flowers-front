@@ -1,0 +1,24 @@
+.collapsedMenuContainer {
+  background: rgba(0, 0, 0, 0.9);
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+
+.collapsedMenu {
+  background-color: #001529;
+  width: 300px;
+  height: 100%;
+}
+
+/* ! Вынести на общий план, такого используется в юзер странице */
+@media (max-width: 992px) {
+    .collapsedItem {
+        display: none;
+    }
+
+    .collapsedMenu {
+        display: flex;
+    }
+}
