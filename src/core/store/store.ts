@@ -20,9 +20,11 @@ export type ProfileStoreType = {
 
 type StoreType = {
   profile: ProfileStoreType | null;
+  isProfileLoading: boolean;
   tempCart: CartStoreType;
 
   setProfile: (profileData: ProfileStoreType | null) => void;
+  setIsProfileLoading: (isLoading: boolean) => void;
   addToTempCart: (
     productList: CartStoreType,
     setCookie: (tempCart: CartStoreType) => void
@@ -44,12 +46,15 @@ type StoreType = {
 
 export const useStore = create<StoreType>((set) => ({
   profile: null,
+  isProfileLoading: false,
   tempCart: {
     productsData: [],
     totalPrice: 0,
   },
   setProfile: (profileData: ProfileStoreType | null) =>
     set((state) => ({ ...state, profile: profileData })),
+  setIsProfileLoading: (isLoading: boolean) =>
+    set((state) => ({ ...state, isProfileLoading: isLoading })),
   addToTempCart: (cartData, setCookie) =>
     set((state) => {
       // TODO: Рефакторинг

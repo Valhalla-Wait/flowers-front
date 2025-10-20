@@ -10,6 +10,7 @@ import { BlackActionBtn } from "@/components/blackActionBtn/blackActionBtn";
 import { useForm } from "antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/core/store/store";
+import { Loader } from "@/components/loader";
 
 // TODO: Логика дублируется в authForm
 export default function AdminSignInPage() {
@@ -18,12 +19,18 @@ export default function AdminSignInPage() {
   const queryClient = useQueryClient();
   const [authError, setAuthError] = useState<string | null>(null);
   const profile = useStore((store) => store.profile);
+  const isProfileLoading = useStore((store) => store.isProfileLoading);
 
   useEffect(() => {
     if (profile?.role === Roles.ADMIN) {
       router.replace("/admin");
     }
   }, [profile]);
+
+  // Если профиль загружается, показываем загрузку
+  if (isProfileLoading) {
+    return <Loader />;
+  }
 
   const { isPending, mutate } = useMutation({
     mutationFn: (data: AuthAdminDataType) => {

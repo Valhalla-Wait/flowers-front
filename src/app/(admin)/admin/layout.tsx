@@ -8,6 +8,7 @@ import { Roles } from "@/core/net/types";
 import { useRouter } from "next/navigation";
 import styles from "./layout.module.css";
 import { MobileMenuContext } from "@/hooks/useMobileMenu";
+import { Loader } from "@/components/loader";
 
 export default function AdminPageLayout({
   children,
@@ -16,6 +17,7 @@ export default function AdminPageLayout({
 }) {
   const router = useRouter();
   const profile = useStore((store) => store.profile);
+  const isProfileLoading = useStore((store) => store.isProfileLoading);
   const [collapsedMobileMenu, setCollapsedMobileMenu] = useState(true);
 
   const toggleCollapsedMobileMenu = () =>
@@ -23,10 +25,19 @@ export default function AdminPageLayout({
   const closeCollapsedMobileMenu = () => setCollapsedMobileMenu(true);
 
   useEffect(() => {
-    if (profile?.role !== Roles.ADMIN) {
-      router.replace("/admin/login");
+    // Если профиль еще загружается, ничего не делаем
+    // Если профиль загружен и роль не ADMIN, перенаправляем на страницу входа
+    if (!isProfileLoading) {
+      if (!profile || profile?.role !== Roles.ADMIN) {
+        router.replace("/admin/login");
+      }
     }
-  }, [profile]);
+  }, [profile, isProfileLoading]);
+
+  // Показываем загрузку, пока проверяем аутентификацию
+  if (isProfileLoading) {
+    return <Loader />;
+  }
 
   return (
     <Layout hasSider={true} className="layout" style={{ minHeight: "100vh" }}>
