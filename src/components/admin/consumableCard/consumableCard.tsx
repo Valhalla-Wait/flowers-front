@@ -1,5 +1,5 @@
 "use client";
-import { Card, InputNumber, Popconfirm, Button } from "antd";
+import { Card, Popconfirm, Button } from "antd";
 import Meta from "antd/es/card/Meta";
 import { DeleteOutlined } from "@ant-design/icons";
 import { CountSelector } from "../../countSelector/countSelector";
@@ -60,7 +60,12 @@ export default function ConsumableCard({
           <Popconfirm
             title="Удалить расходник?"
             description="Вы уверены, что хотите удалить этот расходник?"
-            onConfirm={() => onDelete(id)}
+            onConfirm={(e) => {
+              e?.preventDefault();
+              e?.stopPropagation();
+              onDelete(id);
+            }}
+            onCancel={(e) => e?.stopPropagation()}
             okText="Да"
             cancelText="Нет"
           >
@@ -71,6 +76,7 @@ export default function ConsumableCard({
               style={{
                 fontSize: "21px",
               }}
+              onClick={(e) => e.stopPropagation()}
             />
           </Popconfirm>
         </div>
