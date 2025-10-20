@@ -2,7 +2,7 @@
 import ConsumableCard from "@/components/admin/consumableCard/consumableCard";
 import { ConsumablesRequests } from "@/core/net/consumables";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Form, InputNumber, List, message } from "antd";
+import { InputNumber, List, message } from "antd";
 import { useState } from "react";
 import { AdminDefaultPageLayout } from "@/components/admin/adminPageLayout/adminPageLayout";
 import { ConsumableOutType, MetaType } from "@/core/net/types";
@@ -45,7 +45,6 @@ export default function ConsumablesPage() {
   const [isOpenModal, setOpenModal] = useState(false);
   const [editProduct, setEditProduct] = useState<EditConsumableType>(null);
   const [messageApi, contextHolder] = message.useMessage();
-  const [form] = Form.useForm();
 
   // TODO: Рефакторинг
   const alertSuccessMsg = () => {
@@ -121,7 +120,7 @@ export default function ConsumablesPage() {
 
   const { isPending: isDeletePending, mutate: deleteConsumable } = useMutation({
     mutationFn: (id: string) => ConsumablesRequests.delete(id),
-    onSuccess: () => {
+    onSuccess: (_, id) => {
       queryClient.setQueryData(
         ["consumables", currentPage],
         (oldData: {
