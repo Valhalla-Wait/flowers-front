@@ -25,11 +25,14 @@ export const authNavigationItems = [
     title: "Мои заказы",
     href: "/orders",
   },
-  {
+];
+
+if (process.env.FAVORITES_ENABLED) {
+  authNavigationItems.push({
     title: "Избранное",
     href: "/wishlist",
-  },
-];
+  });
+}
 
 export const Navbar = (props?: { additionalStyle?: string }) => {
   const path = usePathname();

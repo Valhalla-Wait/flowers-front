@@ -4,6 +4,7 @@ import {
   AppstoreAddOutlined,
   LeftOutlined,
   ShopOutlined,
+  ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import Link from "next/link";
@@ -22,6 +23,12 @@ const navItems = [
     icon: <AppstoreAddOutlined />,
     href: "/admin/consumables",
     label: "Расходники",
+  },
+  {
+    key: "3",
+    icon: <ShoppingCartOutlined />,
+    href: "/admin/orders",
+    label: "Заказы",
   },
 ];
 

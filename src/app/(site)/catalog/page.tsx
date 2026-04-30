@@ -3,10 +3,12 @@ import { ProductList } from "@/components/productList/productList";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
 import { ProductListCardType } from "@/components/productList/productListCard/productListCard";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CartRequests } from "@/core/net/cart";
 import { CartDataType } from "@/core/net/types";
 import { useStore } from "@/core/store/store";
+import { makeRequest } from "@/utils/makeRequest";
+import axios from "axios";
 
 const fetchData = async (currentPage: number, pageSize: number) => {
   const response = await fetch(
@@ -39,6 +41,44 @@ export default function Catalog() {
     queryFn: () => CartRequests.getCart(currentPage, 20),
     retry: false,
   });
+
+  const queryClient = useQueryClient();
+  const { data: admins } = useQuery({
+    queryKey: ["admins"],
+    queryFn: () =>
+      axios.get("http://51.250.83.228:7136/api/content-managers", {
+        withCredentials: true,
+      }),
+    retry: false,
+  });
+
+  console.log("ADMINS", admins);
+
+  const { mutate } = useMutation({
+    mutationFn: () =>
+      makeRequest({
+        method: "post",
+        url: "auth",
+        data: {
+          login: "admin",
+          password: "123456",
+        },
+      }),
+    onSuccess: async (data) => {
+      console.log("AUTH", data);
+      queryClient.invalidateQueries({ queryKey: ["admins"] });
+      // const admins = await makeRequest({
+      //   method: "get",
+      //   url: "content-managers",
+      // });
+      // console.log("ADMINS", admins);
+    },
+    retry: false,
+  });
+
+  useEffect(() => {
+    mutate();
+  }, []);
 
   useEffect(() => {
     if (products) {

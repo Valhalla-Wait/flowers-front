@@ -30,7 +30,7 @@ export const ProductList = ({
           md: 2,
           lg: 3,
           xl: 4,
-          xxl: 1,
+          xxl: 4,
         }}
         dataSource={list}
         renderItem={(product) => (

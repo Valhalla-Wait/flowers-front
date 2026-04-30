@@ -4,6 +4,10 @@
     
 }
 
+.navbarItem { 
+    white-space: nowrap
+}
+
 .navbarItemText {
     height: 27px;
     margin: 10px 15px;

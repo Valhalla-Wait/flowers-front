@@ -1,6 +1,6 @@
 import { makeRequest } from "@/utils/makeRequest";
 import { AuthRequests } from "./auth";
-import { CartItemType, MetaType } from "./types";
+import { ApiResponse, CartItemType, MetaType } from "./types";
 
 export enum OrderStatus {
   // Заказ в обработке
@@ -34,9 +34,18 @@ export type OrdersDataType = {
   meta: MetaType;
 };
 
+type OrdersQueryType = {
+  currentPage: number;
+  pageSize: number;
+  userId?: string;
+  status?: OrderStatus;
+};
+
 export class OrdersRequests {
   static async createOrder() {
-    const response = await makeRequest({
+    const response = await makeRequest<{
+      data: OrderItemType;
+    }>({
       method: "post",
       url: "orders",
     });
@@ -44,39 +53,59 @@ export class OrdersRequests {
     return response.data;
   }
 
-  static async getOrders(currentPage: number, pageSize: number) {
-    const response = await makeRequest<OrdersDataType>({
-      method: "get",
-      url: "orders",
-      params: {
-        page: currentPage,
-        limit: pageSize,
-      },
+  static async acceptOrder(orderId: string) {
+    const response = await makeRequest<ApiResponse>({
+      method: "post",
+      url: `orders/accept/${orderId}`,
     });
 
     return response.data;
   }
 
-  // static async updateCartProductCount(data: UpdateProductCartCountDataType) {
-  //   await AuthRequests.TestSignIn();
+  static async completeOrder(orderId: string) {
+    const response = await makeRequest<ApiResponse>({
+      method: "post",
+      url: `orders/complete/${orderId}`,
+    });
 
-  //   const response = await makeRequest({
-  //     method: "patch",
-  //     url: "cart",
-  //     data,
-  //   });
+    return response.data;
+  }
 
-  //   return response.data;
-  // }
+  static async deliveryOrder(orderId: string) {
+    const response = await makeRequest<ApiResponse>({
+      method: "post",
+      url: `orders/delivery/${orderId}`,
+    });
 
-  // static async removeProductFromCart(productId: string) {
-  //   await AuthRequests.TestSignIn();
+    return response.data;
+  }
 
-  //   const response = await makeRequest({
-  //     method: "delete",
-  //     url: `cart/${productId}`,
-  //   });
+  static async cancelOrder(orderId: string) {
+    const response = await makeRequest<ApiResponse>({
+      method: "delete",
+      url: `orders/cancel/${orderId}`,
+    });
 
-  //   return response.data;
-  // }
+    return response.data;
+  }
+
+  static async updateOrder(orderId: string, data: Partial<OrderItemType>) {
+    const response = await makeRequest<OrderItemType>({
+      method: "patch",
+      url: `orders/${orderId}`,
+      data,
+    });
+
+    return response.data;
+  }
+
+  static async getOrders(query: OrdersQueryType) {
+    const response = await makeRequest<OrdersDataType>({
+      method: "get",
+      url: "orders",
+      params: query,
+    });
+
+    return response.data;
+  }
 }
