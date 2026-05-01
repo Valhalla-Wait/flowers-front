@@ -17,12 +17,15 @@ export const Cart = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["cartProducts", 1],
     queryFn: () => CartRequests.getCart(1, pageSize),
+    retry: false,
   });
 
   const { data: tempCartData, refetch } = useQuery({
     queryKey: ["tempCartProducts", 1],
     queryFn: () =>
       CartRequests.getTempCartByIds(1, pageSize, tempCart.productsData),
+    // TODO: может по дефолту при ините отключить retry
+    retry: false,
   });
 
   const [isOpen, setOpen] = useState(false);

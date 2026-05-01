@@ -28,6 +28,8 @@ const poppinsBold = localFont({
   variable: "--font-poppins-bold",
 });
 
+// TODO: Сделать выделение профиля в navbar когда мы в нем находимся 
+
 export default function RootLayout({
   children,
 }: Readonly<{
