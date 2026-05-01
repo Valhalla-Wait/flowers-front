@@ -19,18 +19,13 @@ export default function AdminSignInPage() {
   const queryClient = useQueryClient();
   const [authError, setAuthError] = useState<string | null>(null);
   const profile = useStore((store) => store.profile);
-  const isProfileLoading = useStore((store) => store.isProfileLoading);
+  // const isProfileLoading = useStore((store) => store.isProfileLoading);
 
   useEffect(() => {
     if (profile?.role === Roles.ADMIN) {
       router.replace("/admin");
     }
   }, [profile]);
-
-  // Если профиль загружается, показываем загрузку
-  if (isProfileLoading) {
-    return <Loader />;
-  }
 
   const { isPending, mutate } = useMutation({
     mutationFn: (data: AuthAdminDataType) => {
@@ -61,6 +56,12 @@ export default function AdminSignInPage() {
   const onSubmit = () => {
     form.submit();
   };
+
+    // Если профиль загружается, показываем загрузку
+    // TODO: Loading не ставися корректно, где то мы забываем его обновлять, вероятно loading вообще не нужен
+  // if (isProfileLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <div className={styles.container}>
