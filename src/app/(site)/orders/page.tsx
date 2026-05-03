@@ -4,28 +4,20 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { OrderItem } from "./orderItem/orderItem";
 import { OrdersRequests } from "@/core/net/orders";
-import { useStore } from "@/core/store/store";
+import { Pagination } from "@/components/productList/pagination/pagination";
 
 export default function Orders() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading } = useQuery({
     queryKey: ["orders", currentPage],
-    queryFn: () => OrdersRequests.getOrders(currentPage, 10),
+    queryFn: () => OrdersRequests.getOrders({
+      currentPage,
+      pageSize: 10
+    }),
   });
 
-  // const queryClient = useQueryClient();
-
-  // const { mutate } = useMutation({
-  //   mutationFn: () => OrdersRequests.createOrder(),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["cartProducts", 1] });
-  //   },
-  // });
-
-  // const createOrderCallback = () => mutate();
-
-  // TODO: сделать через таблиц
+  // TODO: сделать через таблицу
   // TODO: Добавить заголовки для таблицы
   return (
     <div className={styles.container}>
@@ -40,6 +32,9 @@ export default function Orders() {
           <div className={styles.defaultText}>Заказов нет</div>
         )}
       </div>
+      <Pagination currentPage={currentPage}
+        onChange={setCurrentPage}
+        total={data?.meta.pages ?? 0} />
     </div>
   );
 }

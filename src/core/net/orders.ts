@@ -89,6 +89,18 @@ export class OrdersRequests {
     return response.data;
   }
 
+  static async updateOrderStatus(orderId: string, data: Pick<OrderItemType, 'status'>) {
+    const response = await makeRequest<{
+      data: OrderItemType
+    }>({
+      method: "patch",
+      url: `orders/${orderId}`,
+      data,
+    });
+
+    return response.data.data;
+  }
+
   static async updateOrder(orderId: string, data: Partial<OrderItemType>) {
     const response = await makeRequest<OrderItemType>({
       method: "patch",
@@ -99,12 +111,17 @@ export class OrdersRequests {
     return response.data;
   }
 
-  static async getOrders(query: OrdersQueryType) {
+  static async getOrders({currentPage, pageSize}: OrdersQueryType) {
     const response = await makeRequest<OrdersDataType>({
       method: "get",
       url: "orders",
-      params: query,
+      params: {
+        page: currentPage,
+        limit: pageSize
+      },
     });
+
+    console.log(response.data.list)
 
     return response.data;
   }

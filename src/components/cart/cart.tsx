@@ -1,3 +1,4 @@
+"use client"
 import { ShoppingOutlined } from "@ant-design/icons";
 import styles from "./cart.module.css";
 import { useEffect, useState } from "react";
@@ -71,7 +72,7 @@ export const Cart = () => {
         onClick={toggleOpenCartModal}
       >
         <ShoppingOutlined className={styles.icon} />
-        <div className={styles.productsIndicator}>{getCartCount()}</div>
+       {getCartCount() ? <div className={styles.productCounter}>{getCartCount()}</div> : <></>}
       </div>
       <CartModal
         productsData={getCartProducts()}

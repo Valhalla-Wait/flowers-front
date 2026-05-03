@@ -20,9 +20,7 @@ export type EditOrderType = {
 
 export default function OrdersPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [statusFilter, setStatusFilter] = useState<string | undefined>(
-    undefined
-  );
+  const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [isOpenModal, setOpenModal] = useState(false);
   const [editOrder, setEditOrder] = useState<EditOrderType>(null);
   const [messageApi, contextHolder] = message.useMessage();
@@ -39,10 +37,10 @@ export default function OrdersPage() {
   };
 
   const updateOrderStatus = (orderId: string, newStatus: OrderStatus) => {
-    OrdersRequests.updateOrder(orderId, { status: newStatus })
+    OrdersRequests.updateOrderStatus(orderId, { status: newStatus })
       .then((updatedOrder) => {
         queryClient.setQueryData(
-          ["admin-orders", currentPage],
+          ["admin-orders", currentPage, statusFilter],
           (oldData: any) => {
             if (!oldData) return oldData;
             const updatedList = oldData.list.map((item: any) =>
@@ -84,7 +82,7 @@ export default function OrdersPage() {
     },
     onSuccess: (updatedOrder) => {
       queryClient.setQueryData(
-        ["admin-orders", currentPage],
+        ["admin-orders", currentPage, statusFilter],
         (oldData: any) => {
           if (!oldData) return oldData;
           const updatedList = oldData.list.map((item: any) =>

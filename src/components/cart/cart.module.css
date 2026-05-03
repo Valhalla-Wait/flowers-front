@@ -13,7 +13,7 @@
   cursor: pointer;
 }
 
-.productsIndicator {
+.productCounter {
   z-index: 2;
   text-align: center;
   background-color: black;
