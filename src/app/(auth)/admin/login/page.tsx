@@ -35,7 +35,11 @@ export default function AdminSignInPage() {
       queryClient.refetchQueries({ queryKey: ["profile"] });
       router.replace("/admin");
     },
-    onError: (data) => setAuthErrorMessage((data as any).response.data.message),
+    onError: (data) => {
+      //! Настроить ошибки
+      console.log("MESG", data);
+      return setAuthErrorMessage((data as any).response.data.message);
+    },
   });
 
   const clearAuthError = () => setAuthError(null);

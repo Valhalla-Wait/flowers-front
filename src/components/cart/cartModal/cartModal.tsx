@@ -22,6 +22,13 @@ export const CartModal = ({
   return (
     <div
       ref={outsideAlertRef}
+      style={
+        productsData && productsData.list?.length
+          ? {}
+          : {
+              paddingBottom: "30px",
+            }
+      }
       className={`${styles.container} ${isOpen ? styles.visible : ""}`}
     >
       <div className={styles.closeBtnContainer}>
@@ -29,19 +36,25 @@ export const CartModal = ({
       </div>
       <div className={styles.cartInfo}>
         <CartModalList productsData={productsData ?? null} />
-        <div className={styles.total}>
-          Итог: {productsData?.totalPrice ?? 0} руб.
-        </div>
-        <div className={styles.actions}>
-          <BlackActionBtn
-            style={{
-              padding: "10px 15px",
-              fontSize: "14px",
-            }}
-            title="Перейти в корзину"
-            link="/cart"
-          />
-        </div>
+        {productsData && productsData.list?.length ? (
+          <>
+            <div className={styles.total}>
+              Итог: {productsData.totalPrice} руб.
+            </div>
+            <div className={styles.actions}>
+              <BlackActionBtn
+                style={{
+                  padding: "10px 15px",
+                  fontSize: "14px",
+                }}
+                title="Перейти в корзину"
+                link="/cart"
+              />
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

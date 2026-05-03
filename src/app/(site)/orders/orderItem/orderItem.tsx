@@ -1,8 +1,7 @@
 import { useState } from "react";
 import styles from "./orderItem.module.css";
 import { OrderItemType, OrderStatus } from "@/core/net/orders";
-import { DownOutlined, RightOutlined, UpOutlined } from "@ant-design/icons";
-import { SmallImg } from "@/components/smallImg/smallImg";
+import { DownOutlined, RightOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { CustomLink } from "@/components/customLink/customLink";
 
@@ -60,15 +59,11 @@ export const OrderItem = ({ order }: PropsType) => {
         </table>
         <div className={styles.mobileAction}>
           {isOpenDetails ? (
-            <>
-              <DownOutlined /> Скрыть
-            </>
+              <DownOutlined />
           ) : (
-            <>
-              <RightOutlined /> Открыть
-            </>
+              <RightOutlined />
           )}{" "}
-          детали
+          Детали
         </div>
       </div>
 
