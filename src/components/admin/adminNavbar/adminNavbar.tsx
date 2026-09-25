@@ -8,7 +8,6 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
-import { MenuItemType } from "antd/es/menu/interface";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

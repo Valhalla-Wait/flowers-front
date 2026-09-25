@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { OrdersRequests, OrderItemType, OrderStatus } from "@/core/net/orders";
+import { OrdersRequests, OrderStatus } from "@/core/net/orders";
 import { AdminDefaultPageLayout } from "@/components/admin/adminPageLayout/adminPageLayout";
 import { List, message, Space, Pagination, Select } from "antd";
 import { ItemModalContainer } from "@/components/admin/itemModalContainer/itemModalContainer";
@@ -26,20 +26,20 @@ export default function OrdersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [sort, setSort] = useState<OrderSortValue>("desc");
-  const [isOpenModal, setOpenModal] = useState(false);
-  const [editOrder, setEditOrder] = useState<EditOrderType>(null);
+  const [isOpenModal] = useState(false);
+  const [editOrder] = useState<EditOrderType>(null);
   const [messageApi, contextHolder] = message.useMessage();
   const queryClient = useQueryClient();
 
-  const openModal = () => setOpenModal(true);
-  const closeModal = () => {
-    setOpenModal(false);
-    setEditOrder(null);
-  };
-  const openEditModal = (order: OrderItemType) => {
-    openModal();
-    setEditOrder(order);
-  };
+  // const openModal = () => setOpenModal(true);
+  // const closeModal = () => {
+  //   setOpenModal(false);
+  //   setEditOrder(null);
+  // };
+  // const openEditModal = (order: OrderItemType) => {
+  //   openModal();
+  //   setEditOrder(order);
+  // };
 
   const updateOrderStatus = (orderId: string, newStatus: OrderStatus) => {
     OrdersRequests.updateOrderStatus(orderId, { status: newStatus })
@@ -121,8 +121,22 @@ export default function OrdersPage() {
       <AdminDefaultPageLayout
         title="Заказы"
         openModal={() => {}} // No-op function since orders don't have an "add" functionality
-        children={
-          <Space direction="vertical" size="middle" style={{ width: "100%" }}>
+        modal={
+          <ItemModalContainer
+            itemName="Заказ"
+            // ? Ключ необходим для обновления полей формы, тк по дефолту форма после монтирования не изменяется
+            key={editOrder?.id}
+            isEdit={Boolean(editOrder)}
+            isPending={isPending}
+            callback={mutate}
+            initialValues={editOrder}
+            formFields={orderFormFields}
+            open={isOpenModal}
+            closeModal={closeModal}
+          />
+        }
+      >
+                  <Space direction="vertical" size="middle" style={{ width: "100%" }}>
             <Space
               direction="horizontal"
               style={{ width: "100%", justifyContent: "flex-end" }}
@@ -171,22 +185,7 @@ export default function OrdersPage() {
               />
             </div>
           </Space>
-        }
-        modal={
-          <ItemModalContainer
-            itemName="Заказ"
-            // ? Ключ необходим для обновления полей формы, тк по дефолту форма после монтирования не изменяется
-            key={editOrder?.id}
-            isEdit={Boolean(editOrder)}
-            isPending={isPending}
-            callback={mutate}
-            initialValues={editOrder}
-            formFields={orderFormFields}
-            open={isOpenModal}
-            closeModal={closeModal}
-          />
-        }
-      />
+      </AdminDefaultPageLayout>
     </>
   );
 }

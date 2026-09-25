@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./navbar.module.css";
 
 type PropsType = {
@@ -11,11 +10,11 @@ type PropsItemType = {
     title: string
 }
 
-export const Filter = ({title, items}: PropsType) => {
-  const [isOpen, setOpen] = useState(false);
-  const [selectedItemIds, setSelectedItemIds] = useState<number[]>(() => []); 
+export const Filter = ({title}: PropsType) => {
+//   const [isOpen, setOpen] = useState(false);
+//   const [selectedItemIds, setSelectedItemIds] = useState<number[]>(() => []); 
 
-  const selectItem = (id: number) => setSelectedItemIds([...selectedItemIds, id])
+//   const selectItem = (id: number) => setSelectedItemIds([...selectedItemIds, id])
 
   return (
     <div className={styles.container}>
@@ -29,6 +28,6 @@ export const Filter = ({title, items}: PropsType) => {
   );
 };
 
-const FilterItem = ({id, title, isSelected}: PropsItemType & { isSelected: boolean }) => {
-    return <div className={styles.item} key={id}>{title}</div>
-}
+// const FilterItem = ({id, title, isSelected}: PropsItemType & { isSelected: boolean }) => {
+//     return <div className={styles.item} key={id}>{title}</div>
+// }

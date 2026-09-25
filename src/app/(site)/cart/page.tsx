@@ -21,11 +21,11 @@ export default function Cart() {
   const closeAuthModal = () => setOpenAuthModal(false);
   const closeSimplifiedModal = () => setOpenSimplifiedModal(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage] = useState(1);
 
   const [cartData, setCartData] = useState<CartDataType | null>(null);
 
-  const { data, isLoading } = useQuery<CartDataType>({
+  const { data } = useQuery<CartDataType>({
     queryKey: ["cartProducts", currentPage],
     queryFn: () => CartRequests.getCart(currentPage, 10),
     retry: false,
@@ -39,7 +39,7 @@ export default function Cart() {
     enabled: !!tempCart.productsData.length,
   });
 
-  const { data: profileData, isLoading: profileLoading } = useQuery({
+  const { data: profileData } = useQuery({
     queryKey: ["profile"],
     queryFn: AuthRequests.GetMe,
     refetchOnMount: false,

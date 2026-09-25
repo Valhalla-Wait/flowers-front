@@ -118,7 +118,7 @@ export default function ConsumablesPage() {
     onError: alertErrorMsg,
   });
 
-  const { isPending: isDeletePending, mutate: deleteConsumable } = useMutation({
+  const { mutate: deleteConsumable } = useMutation({
     mutationFn: (id: string) => ConsumablesRequests.delete(id),
     onSuccess: (_, id) => {
       queryClient.setQueryData(
@@ -174,8 +174,8 @@ export default function ConsumablesPage() {
             closeModal={closeModal}
           />
         }
-        children={
-          <List
+      >
+                <List
             pagination={{
               onChange: (page) => setCurrentPage(page),
               pageSize,
@@ -197,9 +197,8 @@ export default function ConsumablesPage() {
                 />
               </List.Item>
             )}
-          />
-        }
-      />
+          ></List>
+      </AdminDefaultPageLayout>
     </>
   );
 }

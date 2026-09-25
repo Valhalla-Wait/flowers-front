@@ -99,13 +99,12 @@ export const AuthForm = () => {
       password,
     };
 
-    if (tempCart.productsData.length)
-      [
-        (data.tempCartProducts = tempCart.productsData.map(({ id, count }) => ({
+    if (tempCart.productsData.length) {
+        data.tempCartProducts = tempCart.productsData.map(({ id, count }) => ({
           productId: id,
           count,
-        }))),
-      ];
+        }))
+    }
 
     mutate(data);
   };

@@ -1,5 +1,4 @@
 import { ItemModal } from "./itemModal/itemModal";
-import styles from "./itemModalContainer.module.css";
 import { Form } from "antd";
 import { FormFieldType, ItemModalForm } from "./itemModalForm";
 
@@ -14,6 +13,7 @@ export type ProductModalPropsType<T> = {
   isEdit?: boolean;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 export const ItemModalContainer = <T extends any>({
   itemName,
   open,

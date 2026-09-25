@@ -1,5 +1,4 @@
 import { makeRequest } from "@/utils/makeRequest";
-import { AuthRequests } from "./auth";
 import { ApiResponse, CartItemType, MetaType } from "./types";
 import { ProductDataItemType } from "../store/store";
 import { OrderSortValue } from "@/components/admin/orderSort/orderSort";
@@ -119,6 +118,7 @@ export class OrdersRequests {
     return response.data;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static async createSimplifiedOrder(data: SimplifiedOrderDataType) {
     // TODO: заменить на реальный запрос к API
     return { success: true as const, message: "Заказ успешно оформлен" };

@@ -180,8 +180,7 @@ export default function ProductsPage() {
             closeModal={closeModal}
           />
         }
-        children={
-          <List
+      >          <List
             grid={{
               gutter: 16,
               xs: 1,
@@ -209,8 +208,7 @@ export default function ProductsPage() {
               </List.Item>
             )}
           />
-        }
-      />
+          </AdminDefaultPageLayout>
     </>
   );
 }

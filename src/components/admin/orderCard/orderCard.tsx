@@ -1,5 +1,5 @@
 "use client";
-import { Collapse, Space, Typography, Tag, Select } from "antd";
+import { Collapse, Space, Typography, Select } from "antd";
 import { OrderItemType, OrderStatus } from "@/core/net/orders";
 import { DownOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
@@ -10,14 +10,6 @@ const { Text } = Typography;
 type OrderCardProps = {
   order: OrderItemType;
   onStatusChange: (orderId: string, newStatus: OrderStatus) => void;
-};
-
-const orderStatusTitle: Record<string, string> = {
-  completed: "Выполнен",
-  in_process: "В обработке",
-  in_work: "Принят в работу",
-  delivery: "Доставка",
-  canceled: "Отменен",
 };
 
 export const OrderCard = ({ order, onStatusChange }: OrderCardProps) => {

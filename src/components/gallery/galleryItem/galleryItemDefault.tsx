@@ -1,6 +1,5 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import styles from "./galleryItem.module.css";
-import img1 from "../../assets/img/gallery1.jpg";
 import Link from "next/link";
 import { GalleryItemPropsType } from "./galleryItem";
 

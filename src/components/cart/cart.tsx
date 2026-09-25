@@ -15,7 +15,7 @@ export const Cart = () => {
 
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["cartProducts", 1],
     queryFn: () => CartRequests.getCart(1, pageSize),
     retry: false,

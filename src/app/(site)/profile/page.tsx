@@ -2,7 +2,6 @@
 import styles from "./page.module.css";
 import { AuthRequests } from "@/core/net/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { BlackActionBtn } from "@/components/blackActionBtn/blackActionBtn";
 import { useStore } from "@/core/store/store";
 import { useShallow } from "zustand/shallow";
 import { useRouter } from "next/navigation";
@@ -11,16 +10,6 @@ import { FEATURES } from "@/core/config/flags";
 
 export default function Profile() {
   const router = useRouter();
-
-  useEffect(() => {
-    if (FEATURES.simplifiedOrderFlow) {
-      router.replace("/orders");
-    }
-  }, []);
-
-  if (FEATURES.simplifiedOrderFlow) {
-    return null;
-  }
 
   // TODO: Возможно zustand не нужен, тк react-query кеширует и можно тупо делать запросы
   const { data: profile } = useQuery({
@@ -54,6 +43,16 @@ export default function Profile() {
       router.push("/auth");
     }
   }, [profile]);
+
+  useEffect(() => {
+    if (FEATURES.simplifiedOrderFlow) {
+      router.replace("/orders");
+    }
+  }, []);
+
+  if (FEATURES.simplifiedOrderFlow) {
+    return null;
+  }
 
   return (
     <div className={styles.container}>

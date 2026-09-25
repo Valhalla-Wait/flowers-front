@@ -1,6 +1,6 @@
 import styles from "./countSelector.module.css";
 import Selector from "@/app/(site)/catalog/[id]/selector/selector";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 
 type PropsType = {
   count: number;
