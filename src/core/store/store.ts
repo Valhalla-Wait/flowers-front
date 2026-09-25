@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CartItemType, Roles } from "../net/types";
+import { Roles } from "../net/types";
 
 export type ProductDataItemType = {
   id: string;

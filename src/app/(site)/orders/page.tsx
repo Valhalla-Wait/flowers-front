@@ -9,7 +9,7 @@ import { Pagination } from "@/components/productList/pagination/pagination";
 export default function Orders() {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["orders", currentPage],
     queryFn: () => OrdersRequests.getOrders({
       currentPage,

@@ -1,6 +1,7 @@
 import { makeRequest } from "@/utils/makeRequest";
-import { AuthRequests } from "./auth";
 import { ApiResponse, CartItemType, MetaType } from "./types";
+import { ProductDataItemType } from "../store/store";
+import { OrderSortValue } from "@/components/admin/orderSort/orderSort";
 
 export enum OrderStatus {
   // Заказ в обработке
@@ -18,6 +19,11 @@ export enum OrderStatus {
   // Заказ отменен
   CANCELED = "canceled",
 }
+
+export type SimplifiedOrderDataType = {
+  phone: string;
+  products: ProductDataItemType[];
+};
 
 export type OrderItemType = {
   id: string;
@@ -39,6 +45,7 @@ type OrdersQueryType = {
   pageSize: number;
   userId?: string;
   status?: OrderStatus;
+  sort?: OrderSortValue
 };
 
 export class OrdersRequests {
@@ -111,17 +118,23 @@ export class OrdersRequests {
     return response.data;
   }
 
-  static async getOrders({currentPage, pageSize}: OrdersQueryType) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  static async createSimplifiedOrder(data: SimplifiedOrderDataType) {
+    // TODO: заменить на реальный запрос к API
+    return { success: true as const, message: "Заказ успешно оформлен" };
+  }
+
+  static async getOrders({currentPage, pageSize, status, sort}: OrdersQueryType) {
     const response = await makeRequest<OrdersDataType>({
       method: "get",
       url: "orders",
       params: {
         page: currentPage,
-        limit: pageSize
+        limit: pageSize,
+        status,
+        sort,
       },
     });
-
-    console.log(response.data.list)
 
     return response.data;
   }

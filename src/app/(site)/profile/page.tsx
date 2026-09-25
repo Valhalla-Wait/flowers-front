@@ -2,13 +2,15 @@
 import styles from "./page.module.css";
 import { AuthRequests } from "@/core/net/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { BlackActionBtn } from "@/components/blackActionBtn/blackActionBtn";
 import { useStore } from "@/core/store/store";
 import { useShallow } from "zustand/shallow";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { FEATURES } from "@/core/config/flags";
 
 export default function Profile() {
+  const router = useRouter();
+
   // TODO: Возможно zustand не нужен, тк react-query кеширует и можно тупо делать запросы
   const { data: profile } = useQuery({
     queryKey: ["profile"],
@@ -35,13 +37,22 @@ export default function Profile() {
 
   const logout = () => mutate();
 
-  const router = useRouter();
 
   useEffect(() => {
     if (!profile) {
       router.push("/auth");
     }
   }, [profile]);
+
+  useEffect(() => {
+    if (FEATURES.simplifiedOrderFlow) {
+      router.replace("/orders");
+    }
+  }, []);
+
+  if (FEATURES.simplifiedOrderFlow) {
+    return null;
+  }
 
   return (
     <div className={styles.container}>

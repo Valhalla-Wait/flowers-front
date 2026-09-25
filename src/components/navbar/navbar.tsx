@@ -3,6 +3,7 @@ import styles from "./navbar.module.css";
 import Link from "next/link";
 import { useStore } from "@/core/store/store";
 import { useEffect, useState } from "react";
+import { FEATURES } from "@/core/config/flags";
 
 export const mainNavigationItems = [
   {
@@ -41,7 +42,9 @@ export const Navbar = (props?: { additionalStyle?: string }) => {
   const profile = useStore((state) => state.profile);
 
   useEffect(() => {
-    if (profile) {
+    if (FEATURES.simplifiedOrderFlow) {
+      setNavItems(authNavigationItems);
+    } else if (profile) {
       setNavItems(authNavigationItems);
     } else {
       setNavItems(mainNavigationItems);

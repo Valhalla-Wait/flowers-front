@@ -1,5 +1,5 @@
 "use client";
-import { Alert, Button, Form, Input } from "antd";
+import { Alert, Form } from "antd";
 import styles from "./page.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AuthRequests } from "@/core/net/auth";
@@ -10,7 +10,6 @@ import { BlackActionBtn } from "@/components/blackActionBtn/blackActionBtn";
 import { useForm } from "antd/es/form/Form";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/core/store/store";
-import { Loader } from "@/components/loader";
 
 // TODO: Логика дублируется в authForm
 export default function AdminSignInPage() {

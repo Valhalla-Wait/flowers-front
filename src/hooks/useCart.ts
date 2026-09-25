@@ -9,6 +9,7 @@ import { CartStoreType, useStore } from "@/core/store/store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { useShallow } from "zustand/shallow";
+import { FEATURES } from "@/core/config/flags";
 
 export type UseCountSelectorDataType = {
   productId: string;
@@ -56,6 +57,7 @@ export const useCart = ({
     queryKey: ["cartProducts", 1],
     queryFn: () => CartRequests.getCart(1, 10),
     retry: false,
+    enabled: !FEATURES.simplifiedOrderFlow,
   });
 
   const updateMutation = useMutation({
@@ -87,8 +89,11 @@ export const useCart = ({
 
   const removeProduct = () => {
     const { price, count } = optional;
-    if (!profile && price && Number.isInteger(count)) {
-      // TODO: Делать подсчет на уровне удаления
+    if (
+      (FEATURES.simplifiedOrderFlow || !profile) &&
+      price &&
+      Number.isInteger(count)
+    ) {
       const totalProductPriceInCart = price * Number(count);
 
       return removeFromTempCart(productId, totalProductPriceInCart, setCookie);
@@ -101,7 +106,10 @@ export const useCart = ({
     if (count <= 0) {
       removeProduct();
     } else {
-      if (!profile && (optional?.price || currentProduct.data?.price)) {
+      if (
+        (FEATURES.simplifiedOrderFlow || !profile) &&
+        (optional?.price || currentProduct.data?.price)
+      ) {
         const price = (currentProduct?.data?.price ?? optional.price) as number;
         return updateCountTempCartProduct(productId, price, count, setCookie);
       } else {
@@ -114,7 +122,7 @@ export const useCart = ({
   };
 
   const addProduct = () => {
-    if (profile) {
+    if (!FEATURES.simplifiedOrderFlow && profile) {
       addMutation.mutate({
         productId,
         count: 1,
@@ -139,10 +147,11 @@ export const useCart = ({
     queryKey: ["tempCartProducts", 1],
     queryFn: () => CartRequests.getTempCartByIds(1, 10, tempCart.productsData),
     retry: false,
+    enabled: !!tempCart.productsData.length,
   });
 
   const getCartProducts = () => {
-    if (cartProducts.data) {
+    if (!FEATURES.simplifiedOrderFlow && cartProducts.data) {
       return cartProducts.data;
     } else if (tempCart.productsData.length && tempCartData?.list.length) {
       return tempCartData;
@@ -152,7 +161,7 @@ export const useCart = ({
   };
 
   const getCartProductById = (id: string) => {
-    if (cartProducts.data) {
+    if (!FEATURES.simplifiedOrderFlow && cartProducts.data) {
       return cartProducts.data.list.find(({ product }) => product.id === id);
     } else if (tempCart.productsData.length && tempCartData?.list.length) {
       return tempCartData.list.find(({ product }) => product.id === id);

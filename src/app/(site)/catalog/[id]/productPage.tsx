@@ -2,7 +2,7 @@
 import styles from "./productPage.module.css";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { HeartOutlined } from "@ant-design/icons";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { CustomBreadcrumb } from "./customBreadcrumb/customBreadcrumb";
 import { ConsumableType } from "@/common/types";
 import { Consumable } from "@/components/consumable/consumable";
@@ -10,6 +10,10 @@ import { BlackActionBtn } from "@/components/blackActionBtn/blackActionBtn";
 import { CountSelector } from "@/components/countSelector/countSelector";
 import { useCart } from "@/hooks/useCart";
 import { useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { FavoritesRequests } from "@/core/net/favorites";
+import { useStore } from "@/core/store/store";
+import { AuthModal } from "@/components/authModal/authModal";
 
 const fetchData = async (id: string) => {
   const response = await axios.get(`http://localhost:8888/api/products/${id}`);
@@ -44,6 +48,33 @@ export default function ProductPage({ id }: { id: string }) {
   });
 
   const productFromCart = getCartProductById(id);
+
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const profile = useStore((state) => state.profile);
+
+  const favoriteMutation = useMutation({
+    mutationFn: () => {
+      if (isFavorite) {
+        return FavoritesRequests.removeFromFavorites({ productId: id });
+      } else {
+        return FavoritesRequests.addToFavorites({ productId: id });
+      }
+    },
+    onMutate: () => {
+      setIsFavorite((prev) => !prev);
+    },
+  });
+
+  const handleToggleFavorite = () => {
+    if (!profile) {
+      setShowAuthModal(true);
+      return;
+    }
+
+    favoriteMutation.mutate();
+  };
 
   useEffect(() => {
     if (productFromCart?.count) {
@@ -109,13 +140,17 @@ export default function ProductPage({ id }: { id: string }) {
                 link=""
                 title="В корзину"
               />
-              <div className={styles.like}>
-                <HeartOutlined />
+              <div className={styles.like} onClick={handleToggleFavorite}>
+                {isFavorite ? <HeartFilled /> : <HeartOutlined />}
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {showAuthModal && (
+        <AuthModal close={() => setShowAuthModal(false)} />
+      )}
     </div>
   );
 }

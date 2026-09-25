@@ -2,11 +2,8 @@ import Link from "next/link";
 import styles from "./blackActionBtn.module.css";
 import {
   CSSProperties,
-  ForwardRefExoticComponent,
   ReactNode,
-  RefAttributes,
 } from "react";
-import { AntdIconProps } from "@ant-design/icons/lib/components/AntdIcon";
 
 type BlackActionBtnPropsType = {
   title: string | ReactNode;

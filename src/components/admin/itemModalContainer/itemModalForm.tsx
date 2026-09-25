@@ -12,6 +12,7 @@ export type ItemModalFormPropsType<T> = {
   initialValues?: any;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 export const ItemModalForm = <T extends any>({
   form,
   formFields,

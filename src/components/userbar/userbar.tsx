@@ -4,6 +4,7 @@ import styles from "./userbar.module.css";
 import { Cart } from "../cart/cart";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FEATURES } from "@/core/config/flags";
 
 export const Userbar = ({
   toggleCollapsedMobileMenu,
@@ -16,15 +17,17 @@ export const Userbar = ({
       <div className={styles.collapsedItem}>
         <SearchOutlined className={styles.icon} />
       </div>
-      <div
-        className={`${styles.collapsedItem} ${
-          path === "/profile" ? styles.active : ""
-        }`}
-      >
-        <Link href="/profile">
-          <UserOutlined className={styles.icon} />
-        </Link>
-      </div>
+      {!FEATURES.simplifiedOrderFlow && (
+        <div
+          className={`${styles.collapsedItem} ${
+            path === "/profile" ? styles.active : ""
+          }`}
+        >
+          <Link href="/profile">
+            <UserOutlined className={styles.icon} />
+          </Link>
+        </div>
+      )}
       <Cart />
       <div onClick={toggleCollapsedMobileMenu} className={styles.collapsedMenu}>
         <MenuOutlined className={styles.icon} />
