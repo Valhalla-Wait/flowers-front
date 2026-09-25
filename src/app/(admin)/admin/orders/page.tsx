@@ -26,16 +26,16 @@ export default function OrdersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [sort, setSort] = useState<OrderSortValue>("desc");
-  const [isOpenModal] = useState(false);
-  const [editOrder] = useState<EditOrderType>(null);
+  const [isOpenModal, setOpenModal] = useState(false);
+  const [editOrder, setEditOrder] = useState<EditOrderType>(null);
   const [messageApi, contextHolder] = message.useMessage();
   const queryClient = useQueryClient();
 
   // const openModal = () => setOpenModal(true);
-  // const closeModal = () => {
-  //   setOpenModal(false);
-  //   setEditOrder(null);
-  // };
+  const closeModal = () => {
+    setOpenModal(false);
+    setEditOrder(null);
+  };
   // const openEditModal = (order: OrderItemType) => {
   //   openModal();
   //   setEditOrder(order);
