@@ -7,6 +7,10 @@ import { List, message, Space, Pagination, Select } from "antd";
 import { ItemModalContainer } from "@/components/admin/itemModalContainer/itemModalContainer";
 import { orderFormFields } from "@/components/admin/orderModal/orderModal";
 import { OrderCard } from "@/components/admin/orderCard/orderCard";
+import {
+  OrderSort,
+  OrderSortValue,
+} from "@/components/admin/orderSort/orderSort";
 
 const pageSize = 10;
 
@@ -21,6 +25,7 @@ export type EditOrderType = {
 export default function OrdersPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
+  const [sort, setSort] = useState<OrderSortValue>("desc");
   const [isOpenModal, setOpenModal] = useState(false);
   const [editOrder, setEditOrder] = useState<EditOrderType>(null);
   const [messageApi, contextHolder] = message.useMessage();
@@ -40,7 +45,7 @@ export default function OrdersPage() {
     OrdersRequests.updateOrderStatus(orderId, { status: newStatus })
       .then((updatedOrder) => {
         queryClient.setQueryData(
-          ["admin-orders", currentPage, statusFilter],
+          ["admin-orders", currentPage, statusFilter, sort],
           (oldData: any) => {
             if (!oldData) return oldData;
             const updatedList = oldData.list.map((item: any) =>
@@ -67,12 +72,13 @@ export default function OrdersPage() {
   };
 
   const { data: orders, isLoading } = useQuery({
-    queryKey: ["admin-orders", currentPage, statusFilter],
+    queryKey: ["admin-orders", currentPage, statusFilter, sort],
     queryFn: () =>
       OrdersRequests.getOrders({
         currentPage,
         pageSize,
         status: statusFilter as OrderStatus,
+        sort: sort ?? undefined,
       }),
   });
 
@@ -137,6 +143,13 @@ export default function OrdersPage() {
                   { value: "completed", label: "Выполнен" },
                   { value: "canceled", label: "Отменен" },
                 ]}
+              />
+                            <OrderSort
+                value={sort}
+                onChange={(nextSort) => {
+                  setSort(nextSort);
+                  setCurrentPage(1); // Reset to first page when sort changes
+                }}
               />
             </Space>
             <List

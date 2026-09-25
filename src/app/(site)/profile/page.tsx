@@ -7,8 +7,21 @@ import { useStore } from "@/core/store/store";
 import { useShallow } from "zustand/shallow";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { FEATURES } from "@/core/config/flags";
 
 export default function Profile() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (FEATURES.simplifiedOrderFlow) {
+      router.replace("/orders");
+    }
+  }, []);
+
+  if (FEATURES.simplifiedOrderFlow) {
+    return null;
+  }
+
   // TODO: Возможно zustand не нужен, тк react-query кеширует и можно тупо делать запросы
   const { data: profile } = useQuery({
     queryKey: ["profile"],
@@ -35,7 +48,6 @@ export default function Profile() {
 
   const logout = () => mutate();
 
-  const router = useRouter();
 
   useEffect(() => {
     if (!profile) {
