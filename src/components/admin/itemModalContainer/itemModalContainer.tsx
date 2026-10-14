@@ -1,5 +1,6 @@
 import { ItemModal } from "./itemModal/itemModal";
 import { Form } from "antd";
+import { useEffect } from "react";
 import { FormFieldType, ItemModalForm } from "./itemModalForm";
 
 export type ProductModalPropsType<T> = {
@@ -25,6 +26,17 @@ export const ItemModalContainer = <T extends any>({
   isEdit,
 }: ProductModalPropsType<T>) => {
   const [form] = Form.useForm();
+
+  // Экземпляр формы переиспользуется между открытиями модалки: даже с
+  // destroyOnClose значения полей сохраняются в сторе form, поэтому при
+  // повторном создании могло остаться старое название. Сбрасываем форму
+  // при каждом закрытии (и через onCancel, и через closeModal после onSuccess).
+  useEffect(() => {
+    if (!open) {
+      form.resetFields();
+    }
+  }, [open, form]);
+
   return (
     <ItemModal
       title={`${

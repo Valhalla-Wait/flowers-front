@@ -34,6 +34,7 @@ export default function ProductPage({ id }: { id: string }) {
     photo: string;
     consumables: ConsumableType[];
     isAvailable: boolean;
+    tags?: { id: string; title: string }[];
   }>({
     queryKey: ["product", id],
     queryFn: () => fetchData(id as string),
@@ -97,6 +98,15 @@ export default function ProductPage({ id }: { id: string }) {
         <img className={styles.photo} src={data?.photo} alt="" />
         <div className={styles.info}>
           <h1 className={styles.title}>{data?.title}</h1>
+          {data?.tags?.length ? (
+            <div className={styles.tags}>
+              {data.tags.map((tag) => (
+                <span key={tag.id} className={styles.tag}>
+                  {tag.title}
+                </span>
+              ))}
+            </div>
+          ) : null}
           <div className={styles.price}>
             {`${data?.price} руб.`}
             {data?.priceWithoutDiscount ? (

@@ -27,6 +27,7 @@ export const ItemModal = ({
         onCancel={onCancel}
         confirmLoading={confirmLoading}
         title={title}
+        destroyOnClose
       >
         {children}
       </Modal>

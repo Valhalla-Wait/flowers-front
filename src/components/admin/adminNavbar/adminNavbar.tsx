@@ -6,6 +6,7 @@ import {
   HomeOutlined,
   ShopOutlined,
   ShoppingCartOutlined,
+  TagsOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import Link from "next/link";
@@ -26,12 +27,18 @@ const navItems = [
   },
   {
     key: "3",
+    icon: <TagsOutlined />,
+    href: "/admin/tags",
+    label: "Теги",
+  },
+  {
+    key: "4",
     icon: <ShoppingCartOutlined />,
     href: "/admin/orders",
     label: "Заказы",
   },
   {
-    key: "4",
+    key: "5",
     icon: <HomeOutlined />,
     href: "/",
     label: "Выход",

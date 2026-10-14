@@ -28,7 +28,8 @@ export const ItemModalForm = <T extends any>({
     >
       {formFields.map(({ formProps, children }, i) => (
         <Form.Item {...formProps} key={i}>
-          {children ?? <Input />}
+          {/* autoFocus — фокус на первое поле при открытии модалки */}
+          {children ?? <Input autoFocus />}
         </Form.Item>
       ))}
     </Form>

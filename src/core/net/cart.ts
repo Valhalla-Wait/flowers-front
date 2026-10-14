@@ -53,11 +53,11 @@ export class CartRequests {
       return data;
     }
 
-    const productsData = await ProductsRequests.getProducts(
-      currentPage,
-      pageSize,
-      tempCartProducts.map((el) => el.id)
-    );
+    const productsData = await ProductsRequests.getProducts({
+      page: currentPage,
+      limit: pageSize,
+      ids: tempCartProducts.map((el) => el.id),
+    });
 
     data.meta = productsData.meta;
 

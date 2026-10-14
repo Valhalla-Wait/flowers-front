@@ -1,0 +1,27 @@
+.container {
+  padding: 0 24px;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 16px 0;
+  max-width: 800px;
+}
+
+.search {
+  flex: 1 1 200px;
+  max-width: 300px;
+}
+
+.tagFilter {
+  flex: 1 1 180px;
+  min-width: 180px;
+}
+
+.sort {
+  flex: 0 0 auto;
+  min-width: 180px;
+}
