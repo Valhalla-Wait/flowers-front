@@ -45,12 +45,12 @@ export default function Profile() {
   }, [profile]);
 
   useEffect(() => {
-    if (FEATURES.simplifiedOrderFlow) {
+    if (FEATURES.simplifiedOrderFlowIsEnabled) {
       router.replace("/orders");
     }
   }, []);
 
-  if (FEATURES.simplifiedOrderFlow) {
+  if (FEATURES.simplifiedOrderFlowIsEnabled) {
     return null;
   }
 

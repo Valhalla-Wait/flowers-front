@@ -29,11 +29,11 @@ export default function AuthProvider({
     queryFn: AuthRequests.GetMe,
     refetchOnMount: false,
     retry: false,
-    enabled: !FEATURES.simplifiedOrderFlow,
+    enabled: !FEATURES.simplifiedOrderFlowIsEnabled,
   });
 
   useEffect(() => {
-    if (FEATURES.simplifiedOrderFlow) {
+    if (FEATURES.simplifiedOrderFlowIsEnabled) {
       return;
     }
 
@@ -44,7 +44,7 @@ export default function AuthProvider({
   }, [data, profile]);
 
   useEffect(() => {
-    if (FEATURES.simplifiedOrderFlow) {
+    if (FEATURES.simplifiedOrderFlowIsEnabled) {
       return;
     }
 
