@@ -9,12 +9,12 @@ export default function Auth() {
   const router = useRouter();
 
   useEffect(() => {
-    if (FEATURES.simplifiedOrderFlow) {
+    if (FEATURES.simplifiedOrderFlowIsEnabled) {
       router.replace("/cart");
     }
   }, []);
 
-  if (FEATURES.simplifiedOrderFlow) {
+  if (FEATURES.simplifiedOrderFlowIsEnabled) {
     return null;
   }
 

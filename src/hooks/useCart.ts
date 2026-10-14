@@ -57,7 +57,7 @@ export const useCart = ({
     queryKey: ["cartProducts", 1],
     queryFn: () => CartRequests.getCart(1, 10),
     retry: false,
-    enabled: !FEATURES.simplifiedOrderFlow,
+    enabled: !FEATURES.simplifiedOrderFlowIsEnabled,
   });
 
   const updateMutation = useMutation({
@@ -90,7 +90,7 @@ export const useCart = ({
   const removeProduct = () => {
     const { price, count } = optional;
     if (
-      (FEATURES.simplifiedOrderFlow || !profile) &&
+      (FEATURES.simplifiedOrderFlowIsEnabled || !profile) &&
       price &&
       Number.isInteger(count)
     ) {
@@ -107,7 +107,7 @@ export const useCart = ({
       removeProduct();
     } else {
       if (
-        (FEATURES.simplifiedOrderFlow || !profile) &&
+        (FEATURES.simplifiedOrderFlowIsEnabled || !profile) &&
         (optional?.price || currentProduct.data?.price)
       ) {
         const price = (currentProduct?.data?.price ?? optional.price) as number;
@@ -122,7 +122,7 @@ export const useCart = ({
   };
 
   const addProduct = () => {
-    if (!FEATURES.simplifiedOrderFlow && profile) {
+    if (!FEATURES.simplifiedOrderFlowIsEnabled && profile) {
       addMutation.mutate({
         productId,
         count: 1,
@@ -151,7 +151,7 @@ export const useCart = ({
   });
 
   const getCartProducts = () => {
-    if (!FEATURES.simplifiedOrderFlow && cartProducts.data) {
+    if (!FEATURES.simplifiedOrderFlowIsEnabled && cartProducts.data) {
       return cartProducts.data;
     } else if (tempCart.productsData.length && tempCartData?.list.length) {
       return tempCartData;
@@ -161,7 +161,7 @@ export const useCart = ({
   };
 
   const getCartProductById = (id: string) => {
-    if (!FEATURES.simplifiedOrderFlow && cartProducts.data) {
+    if (!FEATURES.simplifiedOrderFlowIsEnabled && cartProducts.data) {
       return cartProducts.data.list.find(({ product }) => product.id === id);
     } else if (tempCart.productsData.length && tempCartData?.list.length) {
       return tempCartData.list.find(({ product }) => product.id === id);

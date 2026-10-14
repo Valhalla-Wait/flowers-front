@@ -17,7 +17,7 @@ export const Userbar = ({
       <div className={styles.collapsedItem}>
         <SearchOutlined className={styles.icon} />
       </div>
-      {!FEATURES.simplifiedOrderFlow && (
+      {!FEATURES.simplifiedOrderFlowIsEnabled && (
         <div
           className={`${styles.collapsedItem} ${
             path === "/profile" ? styles.active : ""

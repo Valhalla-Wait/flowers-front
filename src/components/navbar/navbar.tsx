@@ -28,7 +28,7 @@ export const authNavigationItems = [
   },
 ];
 
-if (process.env.FAVORITES_ENABLED) {
+if (FEATURES.favoritesIsEnabled) {
   authNavigationItems.push({
     title: "Избранное",
     href: "/wishlist",
@@ -42,7 +42,8 @@ export const Navbar = (props?: { additionalStyle?: string }) => {
   const profile = useStore((state) => state.profile);
 
   useEffect(() => {
-    if (FEATURES.simplifiedOrderFlow) {
+    console.log(FEATURES.simplifiedOrderFlowIsEnabled)
+    if (FEATURES.simplifiedOrderFlowIsEnabled) {
       setNavItems(authNavigationItems);
     } else if (profile) {
       setNavItems(authNavigationItems);

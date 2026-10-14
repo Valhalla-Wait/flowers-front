@@ -29,7 +29,7 @@ export default function Cart() {
     queryKey: ["cartProducts", currentPage],
     queryFn: () => CartRequests.getCart(currentPage, 10),
     retry: false,
-    enabled: !FEATURES.simplifiedOrderFlow,
+    enabled: !FEATURES.simplifiedOrderFlowIsEnabled,
   });
 
   const { data: tempCartData } = useQuery({
@@ -44,7 +44,7 @@ export default function Cart() {
     queryFn: AuthRequests.GetMe,
     refetchOnMount: false,
     retry: false,
-    enabled: !FEATURES.simplifiedOrderFlow,
+    enabled: !FEATURES.simplifiedOrderFlowIsEnabled,
   });
 
   const queryClient = useQueryClient();
@@ -57,7 +57,7 @@ export default function Cart() {
   });
 
   const createOrderCallback = () => {
-    if (FEATURES.simplifiedOrderFlow) {
+    if (FEATURES.simplifiedOrderFlowIsEnabled) {
       setOpenSimplifiedModal(true);
     } else if (!profileData) {
       setOpenAuthModal(true);
@@ -67,7 +67,7 @@ export default function Cart() {
   };
 
   const getCartProducts = () => {
-    if (FEATURES.simplifiedOrderFlow) {
+    if (FEATURES.simplifiedOrderFlowIsEnabled) {
       if (tempCart.productsData.length && tempCartData?.list.length) {
         return tempCartData;
       }
