@@ -3,6 +3,7 @@ import {
   ApiResponse,
   CartItemProductType,
   CreateProductDataType,
+  GetProductsParamsType,
   MetaType,
   UpdateProductDataType,
 } from "./types";
@@ -20,17 +21,29 @@ export class ProductsRequests {
     return response.data.data;
   }
 
-  static async getProducts(
-    currentPage: number,
-    pageSize: number,
-    ids?: string[]
-  ) {
+  static async getProducts({
+    page,
+    limit,
+    ids,
+    tagIds,
+    search,
+    sortBy,
+    sort,
+  }: GetProductsParamsType) {
     const params: {
       page: number;
       limit: number;
       ids?: string[];
-    } = { page: currentPage, limit: pageSize };
-    if (ids) params.ids = ids;
+      tagIds?: string[];
+      search?: string;
+      sortBy?: string;
+      sort?: string;
+    } = { page, limit };
+    if (ids?.length) params.ids = ids;
+    if (tagIds?.length) params.tagIds = tagIds;
+    if (search) params.search = search;
+    if (sortBy) params.sortBy = sortBy;
+    if (sort) params.sort = sort;
 
     const response = await makeRequest<{
       list: CartItemProductType[];

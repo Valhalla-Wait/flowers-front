@@ -23,6 +23,11 @@ export type CartDataType = {
   meta: MetaType;
 };
 
+export type TagType = {
+  id: string;
+  title: string;
+};
+
 export type CartItemProductType = {
   id: string;
   title: string;
@@ -30,6 +35,7 @@ export type CartItemProductType = {
   isAvailable?: boolean;
   price: number;
   inStock: boolean;
+  tags?: TagType[];
 };
 
 export type CartItemType = {
@@ -53,6 +59,7 @@ export type CreateProductDataType = {
     id: string;
     requiredCount: number;
   }[];
+  tagIds?: string[];
 };
 
 export type MetaType = {
@@ -104,3 +111,22 @@ export type CreateConsumableDataType = {
 };
 
 export type UpdateConsumableDataType = Partial<CreateConsumableDataType>;
+
+export type CreateTagDataType = {
+  title: string;
+};
+
+export type UpdateTagDataType = Partial<CreateTagDataType>;
+
+export type SortByType = "title" | "createdAt" | "price";
+export type SortOrderType = "asc" | "desc";
+
+export type GetProductsParamsType = {
+  page: number;
+  limit: number;
+  ids?: string[];
+  tagIds?: string[];
+  search?: string;
+  sortBy?: SortByType;
+  sort?: SortOrderType;
+};
